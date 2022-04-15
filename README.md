@@ -1,0 +1,2 @@
+# TestProjectAngular
+ Angular + .NET Core
