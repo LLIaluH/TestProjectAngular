@@ -1,0 +1,9 @@
+<button class="btn-sort swich-btn btn active" (click)="toggle()" *ngIf="active">
+  <p *ngIf="fromBigToSmall" class="down-btn">По убыванию</p>
+  <p *ngIf="!fromBigToSmall" class="up-btn" style="color:#ff5a5a">По возрастанию</p>
+</button>
+
+<button class="btn-sort swich-btn btn" (click)="toggle()" *ngIf="!active">
+  <p *ngIf="fromBigToSmall" class="down-btn">По убыванию</p>
+  <p *ngIf="!fromBigToSmall" class="up-btn" style="color:#ff5a5a">По возрастанию</p>
+</button>

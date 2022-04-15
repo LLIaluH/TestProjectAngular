@@ -1,0 +1,19 @@
+body {
+}
+
+.btnEditor {
+  height: 30px;
+  width: 100%;
+  margin-bottom: 3px;
+  border-radius: 6px;
+  border:none;
+}
+
+.btn-edit {
+  background-color: #d5d5d5;
+}
+
+.btn-edit:hover {
+  /*box-shadow: 0px 0px 20px 5px rgb(224 255 255);*/
+  background-color: #e0ffff;
+}

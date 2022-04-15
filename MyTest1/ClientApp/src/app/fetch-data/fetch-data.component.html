@@ -1,0 +1,90 @@
+<div *ngIf="(edit || createB) && !modalWin">
+  <div class="modal-center form-change">
+    <div *ngIf="edit"><h3>Редактировать сотрудника</h3></div>
+    <div *ngIf="!edit"><h3>Добавить нового сотрудника</h3></div>
+    <hr />
+    <div class="form-group">
+      <label>Отдел</label>
+      <input type="text" [(ngModel)]="employee.department" name="department" class="form-control input-filter" value="" />
+      <label>Ф.И.О.</label>
+      <input type="text" [(ngModel)]="employee.name" name="name" class="form-control input-filter" value="" />
+      <label>Дата рождения</label>
+      <input type="date" [(ngModel)]="employee.dateOfBirth" name="dateOfBirth" class="form-control input-filter" value="" />
+      <label>Дата трудоустройства</label>
+      <input type="date" [(ngModel)]="employee.dateOfEmployment" name="dateOfEmployment" class="form-control input-filter" value="" />
+      <label>З/П</label>
+      <input type="number" [(ngModel)]="employee.wage" name="wage" class="form-control input-filter" value="" />
+    </div>
+    <div class="btn-form-change">
+      <button class=" btn btn-sm btn-warning" style="margin-left: 6px; margin-bottom: 6px; width: 100px" (click)="openModal()">Подтвердить</button>
+      <button class=" btn btn-sm btn-primary" style="margin-left: 6px; margin-bottom: 6px; width: 100px" (click)="close()">Отмена</button>
+    </div>
+  </div>
+</div>
+<modal-win *ngIf="modalWin" (onChanged)="modalRes($event)"></modal-win>
+<div id="main" *ngIf="!edit && !createB && !modalWin">
+  <h1 id="tableLabel">Наши любимые сотрудники</h1>
+
+  <p>Здесь вы можете убрать зароботную плату у всех сотрудников или уволить каждого и никто вам ничего не сделает.</p>
+
+  <p *ngIf="!employees"><em>Loading...</em></p>
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employees">
+    <thead style="text-align:center; ">
+      <tr>
+        <th>Отдел</th>
+        <th>Ф.И.О</th>
+        <th>Дата рождения</th>
+        <th>Дата устройства на работу</th>
+        <th>Заработная плата</th>
+        <th>
+          <!--в тз написано, что этот хедер должен быть пустой, но я не удержался и засунул сюда кнопку для добавления записи.-->
+          <button class=" btn btn-sm btn-success" style="margin-left: 6px; width: 100px" (click)="create()">Добавить</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="text-align: -webkit-center; ">
+        <td>
+          <input type="text" name="department" class="form-control input-filter" [(ngModel)]="employeeFilter.department" />
+          <btn-sort (onChanged)="onChangedSort(0, $event)" [active]="colSorter[0]"></btn-sort>
+        </td>
+        <td>
+          <input type="text" name="name" class="form-control input-filter" [(ngModel)]="employeeFilter.name" />
+          <btn-sort (onChanged)="onChangedSort(1, $event)" [active]="colSorter[1]"></btn-sort>
+        </td>
+        <td>
+          <input type="date" name="dateOfBirth" class="form-control input-filter" [(ngModel)]="employeeFilter.dateOfBirth" />
+          <btn-sort (onChanged)="onChangedSort(2, $event)" [active]="colSorter[2]"></btn-sort>
+        </td>
+        <td>
+          <input type="date" name="dateOfEmployment" class="form-control input-filter" [(ngModel)]="employeeFilter.dateOfEmployment" />
+          <btn-sort (onChanged)="onChangedSort(3, $event)" [active]="colSorter[3]"></btn-sort>
+        </td>
+        <td>
+          <input type="number" name="wage" class="form-control input-filter" [(ngModel)]="employeeFilter.wage" />
+          <btn-sort (onChanged)="onChangedSort(4, $event)" [active]="colSorter[4]"></btn-sort>
+        </td>
+        <td style="text-align:center;">
+          <button class=" btn btn-sm" style="background-color: #3c4044; color:white; margin-left: 6px; width: 100px" (click)="filter()">Применить</button>
+          <button class=" btn btn-sm" style="background-color: #3c4044; color: white; margin-left: 6px; width: 100px; margin-top: 6px;" (click)="clearFilter()">Очистить</button>
+        </td>
+      </tr>
+
+      <tr *ngFor="let e of employees" class="hover-border-tr">
+        <td>{{ e.department }}</td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.dateOfBirth }}</td>
+        <td>{{ e.dateOfEmployment }}</td>
+        <td>{{ e.wage }}</td>
+        <td style="text-align:center;">
+          <button class=" btn btn-sm btn-primary" style="margin-left: 6px; margin-bottom: 6px; width: 100px" (click)="swichEdit(e)">Изменить</button>
+          <button class=" btn btn-sm btn-danger" style="margin-left: 6px; width: 100px" (click)="openModal(e)">Удалить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
