@@ -1,0 +1,8 @@
+SELECT * FROM Employee
+
+SELECT * FROM Employee WHERE Wage > 10000
+
+DELETE FROM Employee WHERE DateOfBirth < DATEADD(year, -70, GETUTCDATE())
+
+UPDATE Employee SET Wage=15000 WHERE Wage < 15000
+
